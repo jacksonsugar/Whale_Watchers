@@ -17,7 +17,7 @@ def transmit():
 	GPIO.output(18, 1)
 	destination = "/home/pi/Documents/Data/%s.txt" % d_time
 	os.chdir(source)
-       	os.rename("Data.txt", destination)
+	os.rename("Data.txt", destination)
 	zip = "sudo bzip2 %s" % destination
 	os.system(zip)
 	print("File compressed")
