@@ -15,17 +15,17 @@ d_time = 0
 def transmit():
 	d_time = time.time()
 	GPIO.output(18, 1)
-	destination = "/home/pi/Documents/Data/%s.txt" % d_time
+	destination = "/home/pi/Documents/Data/%s.txt" % d_time ##Create destination file location based on current time
 	os.chdir(source)
-	os.rename("Data.txt", destination)
-	zip = "sudo bzip2 %s" % destination
+	os.rename("Data.txt", destination) ##Rename fresh DAQ Data as new timestring
+	zip = "sudo bzip2 %s" % destination  ##Compress file to save data
 	os.system(zip)
 	print("File compressed")
 	cp = "sudo cp %s.txt.bz2 /media/pi/usb/1/" % d_time
-	os.system(cp)
+	os.system(cp)	##Back up data to USB drive
 	print("Saved to USB storage device")
 	scp = "sudo sshpass -p '******' scp /home/pi/Documents/Data/%s.txt.bz2 whale-srv@******:~/Whale_Srv/Incoming/1/" % d_time
-	os.system(scp)
+	os.system(scp)  ##Send File to server
 	GPIO.output(18, 0)
 	print("Done! %s" % d_time)
 
