@@ -29,4 +29,3 @@ def sample():
 
 while True:
 	sample()
-	time.sleep(.1)
